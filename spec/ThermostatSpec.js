@@ -13,8 +13,8 @@ describe('Thermostat', function() {
 
   describe('up', function(){
     it('increases temp by specified amount', function(){
-      thermo.up(10);
-      expect(thermo.temp).toEqual(30);
+      thermo.up(4);
+      expect(thermo.temp).toEqual(24);
     });
 
     it('doesnt increase above maximum (power saving)', function(){
@@ -43,4 +43,13 @@ describe('Thermostat', function() {
       expect(thermo.temp).toEqual(10);
     });
   });
+
+  describe('reset', function(){
+    it('sets temp to 20', function(){
+      var maxThermo = {temp: 35, powerSaving: true}
+      Object.setPrototypeOf(maxThermo, Object.getPrototypeOf(thermo));
+      maxThermo.reset();
+      expect(maxThermo.temp).toEqual(20);
+    })
+  })
 });
