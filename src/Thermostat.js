@@ -7,16 +7,6 @@ Thermostat.prototype.maxTemp  = function() {
   return this.powerSaving === true ? 25 : 35; 
 }
 
-Thermostat.prototype.up = function(amount) {
-  this.temp += amount;
-  if (this.temp > this.maxTemp()) this.temp = this.maxTemp();
-};
-
-Thermostat.prototype.down = function(amount) {
-  this.temp -= amount;
-  if(this.temp < 10) this.temp = 10;
-};
-
 Thermostat.prototype.reset = function(){
   this.temp = 20;
 }
