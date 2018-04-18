@@ -52,4 +52,22 @@ describe('Thermostat', function() {
       expect(maxThermo.temp).toEqual(20);
     })
   })
+
+  describe('currentUsage', function(){
+    it('returns low when temp < 18', function(){
+      var low = {temp: 17, powerSaving: true};
+      Object.setPrototypeOf(low, Object.getPrototypeOf(thermo));
+      expect(low.currentUsage()).toEqual('low');
+    })
+    it('returns medium when 18 < temp < 25', function(){
+      var medium = {temp: 23, powerSaving: true};
+      Object.setPrototypeOf(medium, Object.getPrototypeOf(thermo));
+      expect(medium.currentUsage()).toEqual('medium');
+    })
+    it('returns high when temp > 25', function(){
+      var high = {temp: 30, powerSaving: true};
+      Object.setPrototypeOf(high, Object.getPrototypeOf(thermo));
+      expect(high.currentUsage()).toEqual('high');
+    })
+  })
 });

@@ -20,3 +20,14 @@ Thermostat.prototype.down = function(amount) {
 Thermostat.prototype.reset = function(){
   this.temp = 20;
 }
+
+Thermostat.prototype.currentUsage = function(){
+  switch(true) {
+    case this.temp < 18:
+        return 'low';
+    case this.temp > 25:
+        return 'high';
+    default:
+        return 'medium';
+   }
+}
