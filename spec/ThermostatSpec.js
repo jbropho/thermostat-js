@@ -23,5 +23,9 @@ describe('Thermostat', function() {
       thermo.down(1);
       expect(thermo.temp).toEqual(19);
     })
+    it('doesnt decrease below the minimum temp', function(){
+      thermo.down(20);
+      expect(thermo.temp).toEqual(10);
+    })
   })
 })
