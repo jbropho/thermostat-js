@@ -22,12 +22,7 @@ Thermostat.prototype.reset = function(){
 }
 
 Thermostat.prototype.currentUsage = function(){
-  switch(true) {
-    case this.temp < 18:
-        return 'low';
-    case this.temp > 25:
-        return 'high';
-    default:
-        return 'medium';
-   }
+  if (this.temp < 18) return 'low'
+  if (this.temp > 25) return 'high'
+  return 'medium';
 }
