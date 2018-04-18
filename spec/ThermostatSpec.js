@@ -11,37 +11,30 @@ describe('Thermostat', function() {
     });
   });
 
-  describe('up', function(){
-    it('increases temp by specified amount', function(){
-      thermo.up(4);
-      expect(thermo.temp).toEqual(24);
+  describe('changeTemp', function() {
+    it('accepts a valid temp change', function(){
+       thermo.changeTemp(25);
+       expect(thermo.temp).toEqual(25);
     });
 
-    it('doesnt increase above maximum (power saving)', function(){
-      var powerSave = {temp: 20, powerSaving: true};
-      Object.setPrototypeOf(powerSave, Object.getPrototypeOf(thermo));
-      powerSave.up(50);
-      expect(powerSave.temp).toEqual(25);
-    })
-    
-    it('doesnt increase above maximum (NOT power saving)', function(){
-      var defaultPower = {temp: 20, powerSaving: false};
-      Object.setPrototypeOf(defaultPower, Object.getPrototypeOf(thermo));
-      defaultPower.up(50);
-      expect(defaultPower.temp).toEqual(35);
-    })
-  });
-
-  describe('down', function(){
-    it('decreases temp by specified amount', function(){
-      thermo.down(1);
-      expect(thermo.temp).toEqual(19);
-    });
-
-    it('doesnt decrease below the minimum temp', function(){
-      thermo.down(20);
+    it('changes to minimum when below min selected', function(){
+      thermo.changeTemp(5);
       expect(thermo.temp).toEqual(10);
-    });
+    })
+
+    it('doesnt go above the max in eco mode', function(){
+      var ecoThermo = {temp: 20, powerSaving: true};
+      Object.setPrototypeOf(ecoThermo, Object.getPrototypeOf(thermo));
+      ecoThermo.changeTemp(40);
+      expect(ecoThermo.temp).toEqual(25);
+    })
+
+    it('doesnt go above the max in NON-ECO mode', function(){
+      var notEco = {temp: 20, powerSaving: false};
+      Object.setPrototypeOf(notEco, Object.getPrototypeOf(thermo));
+      notEco.changeTemp(40);
+      expect(notEco.temp).toEqual(35);
+    })
   });
 
   describe('reset', function(){
@@ -59,11 +52,13 @@ describe('Thermostat', function() {
       Object.setPrototypeOf(low, Object.getPrototypeOf(thermo));
       expect(low.currentUsage()).toEqual('low');
     })
+
     it('returns medium when 18 < temp < 25', function(){
       var medium = {temp: 23, powerSaving: true};
       Object.setPrototypeOf(medium, Object.getPrototypeOf(thermo));
       expect(medium.currentUsage()).toEqual('medium');
     })
+    
     it('returns high when temp > 25', function(){
       var high = {temp: 30, powerSaving: true};
       Object.setPrototypeOf(high, Object.getPrototypeOf(thermo));
