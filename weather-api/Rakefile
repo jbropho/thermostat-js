@@ -1,0 +1,18 @@
+require 'pg'
+
+task :default do
+  conn = PG.connect(dbname: 'postgres')
+  conn.exec("CREATE DATABASE thermo_api")
+  conn.close
+
+  db = PG.connect(dbname: 'thermo_api')
+  db.exec(
+    'CREATE TABLE user_state (' \
+    'id serial PRIMARY KEY,' \
+    'user_id serial, ' \
+    'location VARCHAR(100),' \
+    'temp INT,' \
+    'powersave BOOLEAN )'
+  )
+end
+
