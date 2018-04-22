@@ -16,10 +16,11 @@
           <input type="text" value="City name" id="sub-city">
           <button type="button" id="updateCity">Update</button>
           <h1 class="card-title">
-            <h1 id="city-name">
-            </h1>
+            <h1 id="city-name"></h1>
+            <h2 id="local-display"></h2>
           <p id="result">
           </p>
+          <hr>
           <div>
             <h2 id="temp-display"></h2>
           </div>
@@ -48,7 +49,7 @@
                                    toggle: '#toggleEco',
                                    resetTemp: '#resetTemp',
                                    updateCity: '#updateCity',
-                                   api: 'http://localhost:9292'
+                                   getWeather: 'http://localhost:5000/weather/'
                                    });
        });
     </script>

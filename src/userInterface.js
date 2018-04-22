@@ -17,9 +17,9 @@ function Interface(options) {
 
   $( options.updateCity ).click(function() {
     var city = document.getElementById("sub-city").value;
-    $.get("http://localhost:5000/weather/" + city, function( data ) {
+    $.get( options.getWeather + city, function( data ) {
       $( "#city-name" ).html( data.name );
-      $( "#temp-display" ).html(Math.round(+data.main.temp - 273.15) + "C")
+      $( "#local-display" ).html(Math.round(+data.main.temp - 273.15) + "C")
       $( "#result" ).html( data.weather[0].description )
      });
    });
