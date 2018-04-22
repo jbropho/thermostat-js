@@ -1,20 +1,21 @@
 describe('Thermostat', function() {
-  var thermo = new Thermostat();
-
+  var thermo;
+  
   beforeEach(function(){
     thermo = new Thermostat();
   });
 
   describe('new', function(){
     it('initialises with a default of 20 degrees', function(){
-      expect(thermo.temp).toEqual(20);
+      debugger;
+      expect(thermo.temp).toEqual(25);
     });
   });
 
   describe('changeTemp', function() {
     it('accepts a valid temp change', function(){
-       thermo.changeTemp(25);
-       expect(thermo.temp).toEqual(25);
+       thermo.changeTemp(21);
+       expect(thermo.temp).toEqual(21);
     });
 
     it('changes to minimum when below min selected', function(){
@@ -58,7 +59,7 @@ describe('Thermostat', function() {
       Object.setPrototypeOf(medium, Object.getPrototypeOf(thermo));
       expect(medium.currentUsage()).toEqual('medium');
     })
-    
+
     it('returns high when temp > 25', function(){
       var high = {temp: 30, powerSaving: true};
       Object.setPrototypeOf(high, Object.getPrototypeOf(thermo));

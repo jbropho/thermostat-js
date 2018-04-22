@@ -1,31 +1,40 @@
-function Interface(thermo) {
-  
-  function toggleEco() {
-    thermo.powerSaving = thermo.powerSaving === true ? false : true;
-   };
+function Interface(options) {
 
-  function resetTemp() {
-    thermo.changeTemp(20);
-    updateDisplay();
-  };
-  
   function updateTemp() {
     var value = +($( "#slider" ).slider( "value" ));
-    thermo.changeTemp(value);
+    options.thermo.changeTemp(value);
     updateDisplay();
   };
+
+  $( options.toggle ).click(function() {
+    options.thermo.powerSaving = options.thermo.powerSaving === true ? false : true;
+   });
+
+  $( options.resetTemp ).click(function() {
+    options.thermo.changeTemp(20);
+    updateDisplay();
+  });
+
+  $( options.updateCity ).click(function() {
+    var city = document.getElementById("sub-city").value;
+    $.get("http://localhost:5000/weather/" + city, function( data ) {
+      $( "#city-name" ).html( data.name );
+      $( "#temp-display" ).html(Math.round(+data.main.temp - 273.15) + "C")
+      $( "#result" ).html( data.weather[0].description )
+     });
+   });
 
   function updateDisplay() {
     var display = document.getElementById('temp-display');
-    display.innerHTML = thermo.temp + 'C';
+    display.innerHTML = options.thermo.temp + 'C';
   };
 
   $( function() {
-    $( "#card1" ).draggable();
+    $( options.wrapper ).draggable();
   });
   
   $( function() {
-    $( "#slider" ).slider({
+    $( options.slide ).slider({
     range: "min",
     min: 10,
     max: 35,
@@ -37,9 +46,7 @@ function Interface(thermo) {
 
   return {
     toggleEco: toggleEco,
-    resetTemp: resetTemp,
-    updateTemp: updateTemp,
-    updateDisplay: updateDisplay
+    resetTemp: resetTemp
   };  
 };
 
