@@ -32,7 +32,7 @@ function Interface(options) {
   $( function() {
     $( options.wrapper ).draggable();
   });
-  
+
   $( function() {
     $( options.slide ).slider({
     range: "min",
@@ -47,6 +47,5 @@ function Interface(options) {
   return {
     toggleEco: toggleEco,
     resetTemp: resetTemp
-  };  
+  };
 };
-
